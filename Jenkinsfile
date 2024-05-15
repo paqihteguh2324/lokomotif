@@ -7,11 +7,13 @@ pipeline {
     }
 
     stages {
+        stage('check versi'){
+            sh "mvn -v"
+        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main', url: 'https://github.com/paqihteguh2324/lokomotif.git'
-
                 // Run Maven on a Unix agent.
                  sh "mvn clean package"
             }
