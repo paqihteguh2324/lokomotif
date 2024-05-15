@@ -8,7 +8,9 @@ pipeline {
 
     stages {
         stage('check versi'){
+            steps{
             sh "mvn -v"
+            }
         }
         stage('Build Maven') {
             steps {
