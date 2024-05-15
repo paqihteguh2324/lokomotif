@@ -7,6 +7,14 @@ pipeline {
     }
 
     stages {
+        stage('Download and Install Maven') {
+            steps {
+                sh 'wget https://dlcdn.apache.org/maven/maven-4/4.0.0/binaries/apache-maven-4.0.0-bin.zip -O maven.zip'
+                sh 'unzip maven.zip'
+                sh 'export MAVEN_HOME=/path/to/maven/bin' // Optional
+                sh 'mvn -v' // Verify installation
+            }
+        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
