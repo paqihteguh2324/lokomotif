@@ -32,22 +32,5 @@ pipeline {
                 echo "Quality Gate check completed"
             }
         }
-        
-        stage('Build Docker Image') {
-            steps {
-                // build docker image
-                sh "docker build -t paqihteguh2324/lokomotif"
-            }
-        }
-        
-        stage('Push Image to Docker Hub') {
-            steps {
-                // load docker hub credentials
-                
-                // push docker image to docker hub
-                sh "docker push paqihteguh2324/lokomotif"
-                
-            }
-        }
     }
 }
