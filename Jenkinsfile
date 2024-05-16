@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // build docker image
-                bat "docker build -t paqih/locomotive-scheduler-service ."
+                bat "docker build -t paqihteguh23/scheduler-info ."
             }
         }
         
@@ -43,7 +43,7 @@ pipeline {
                 }
                 
                 // push docker image to docker hub
-                bat "docker push paqih/locomotive-scheduler-service"
+                bat "docker push paqihteguh23/scheduler-info"
                 
                 // logout from docker hub
                 bat "docker logout"
