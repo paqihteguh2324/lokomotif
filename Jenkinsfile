@@ -12,8 +12,8 @@ pipeline {
     stages {
         stage('Verify Docker') {
             steps {
-                bat "docker --version"
-                bat "docker info"
+                sh "docker --version"
+                sh "docker info"
             }
         }
         stage('Build Maven') {
