@@ -22,8 +22,6 @@ pipeline {
         stage('Check SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv('jenkins-sonar') {
-                    bat "mvn clean package"
-                    bat "mvn clean install"
                     bat "mvn clean verify sonar:sonar"
                 }
             }
