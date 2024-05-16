@@ -15,8 +15,8 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/paqihteguh2324/lokomotif.git'
 
                 // Run Maven on a Unix agent.
-                sh "mvn -v"
-                sh "mvn clean package"
+                bat "mvn -v"
+                bat "mvn clean package"
             }
         }
         
