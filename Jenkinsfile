@@ -9,8 +9,10 @@ pipeline {
     stages {
  
         stage('Build Maven') {
+            steps{
           echo "Build Success"
-        }
+            }
+            }
         
         stage('Check SonarQube Code Analysis') {
             steps {
