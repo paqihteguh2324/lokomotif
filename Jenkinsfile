@@ -71,7 +71,6 @@ pipeline {
                           --header "Content-Type: application/json" ^
                           --data "{\"chat_id\": ${TELE_CHAT_ID_VAR},\"text\": \"<b>PIPELINE REPORT</b>\\n\\nStatus: Failure\\nJob: ${JOB_NAME}\\nBuild Number: ${BUILD_NUMBER}\",\"parse_mode\": \"HTML\"}"
                     """
-                }
             }
         }
     }
