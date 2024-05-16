@@ -24,8 +24,8 @@ pipeline {
         stage('Check SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarQube') {
-                 sh 'mvn clean package'
-                    sh ''' mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif' '''
+                 bat 'mvn clean package'
+                    bat  "mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
                 }
             }
         }
