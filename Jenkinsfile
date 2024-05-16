@@ -20,11 +20,32 @@ pipeline {
         stage('Check SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarQube') {
-      sh "mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
-    }
+                  sh "mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
+                }
+            }
+        }
+          stage('Build Docker Image') {
+            steps {
+                // build docker image
+                sh "docker build -t paqih/locomotive-scheduler-service ."
             }
         }
         
+            stage('Push Image to Docker Hub') {
+            steps {
+                // load docker hub credentials
+                withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER_VAR'), string(credentialsId: 'DOCKER_PASS', variable: 'DOCKER_PASS_VAR')]) {
+                    // login to docker hub
+                    sh "docker login -u ${DOCKER_USER_VAR} -p ${DOCKER_PASS_VAR}"
+                }
+                
+                // push docker image to docker hub
+                sh "docker push paqih/locomotive-scheduler-service"
+                
+                // logout from docker hub
+                sh "docker logout"
+            }
+        }
     }
 
     post {
