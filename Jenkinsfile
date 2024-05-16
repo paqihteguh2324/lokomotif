@@ -4,7 +4,7 @@ pipeline {
     tools {
         // Install the Maven version configured as "jenkins-maven" and add it to the path.
         maven "jenkins-maven"
-        docker "jenkins-docker"
+        dockerTool "jenkins-docker"
     }
 
     
