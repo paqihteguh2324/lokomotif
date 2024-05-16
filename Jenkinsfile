@@ -9,14 +9,6 @@ pipeline {
     
 
     stages {
-        stage('Run Docker') {
-            steps{
-                script{
-                    img = 'httpd:2.4-alpine'
-                    docker.image("${img}").run('-d -p 80:80')
-                }
-            }
-        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
