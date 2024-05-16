@@ -4,15 +4,12 @@ pipeline {
     tools {
         // Install the Maven version configured as "jenkins-maven" and add it to the path.
         maven "jenkins-maven"
+        docker "Docker"
     }
 
     
 
     stages {
-        stage('Initialize'){
-            def dockerHome = tool 'Docker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
