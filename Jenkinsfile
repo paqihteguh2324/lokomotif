@@ -21,10 +21,10 @@ pipeline {
         
         stage('Check SonarQube Code Analysis') {
             steps {
-                withSonarQubeEnv('sonarQube') {
+                withSonarQubeEnv('jenkins-sonar') {
                     bat "mvn clean package"
                     bat "mvn clean install"
-                    bat "mvn sonar:sonar -Dsonar.token=sqp_f011812c8475aa7e26a55e028c521aacc4f6471f"
+                    bat "mvn sonar:sonar -Dsonar.token=sqp_8afabc130a8345210c4f111304991af739116822"
                 }
             }
         }
