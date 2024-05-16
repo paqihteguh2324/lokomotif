@@ -6,7 +6,13 @@ pipeline {
         maven "jenkins-maven"
     }
 
+    
+
     stages {
+        stage('Initialize'){
+            def dockerHome = tool 'Docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
