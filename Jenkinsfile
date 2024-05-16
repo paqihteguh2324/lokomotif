@@ -24,7 +24,7 @@ pipeline {
                 withSonarQubeEnv('jenkins-sonar') {
                     bat "mvn clean package"
                     bat "mvn clean install"
-                    bat "mvn sonar:sonar -Dsonar.token=sqp_8afabc130a8345210c4f111304991af739116822"
+                    bat "mvn clean verify sonar:sonar"
                 }
             }
         }
