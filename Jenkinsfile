@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-    docker {
-      image 'docker' // Agen khusus dengan Docker
-    }
-  }
+    agent any
 
     tools {
         // Install the Maven version configured as "jenkins-maven" and add it to the path.
