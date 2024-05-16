@@ -23,7 +23,11 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarQube') {
                     bat "mvn clean package"
-                    bat "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:RELEASE:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
+                    bat "mvn clean verify sonar:sonar 
+                          -Dsonar.projectKey=Lokomotif 
+                  -Dsonar.projectName='Lokomotif' 
+                      -Dsonar.host.url='http://172.31.160.1:9000'
+                  -Dsonar.token='sqp_f011812c8475aa7e26a55e028c521aacc4f6471f' "
                 }
             }
         }
