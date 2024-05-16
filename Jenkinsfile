@@ -4,12 +4,19 @@ pipeline {
     tools {
         // Install the Maven version configured as "jenkins-maven" and add it to the path.
         maven "jenkins-maven"
-        dockerTool "jenkins-docker"
     }
 
     
 
     stages {
+        stage('Run Docker') {
+            steps{
+                script{
+                    img = 'httpd:2.4-alpine'
+                    docker.image("${img}.run("-d -p 80:80")
+                }
+            }
+        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
