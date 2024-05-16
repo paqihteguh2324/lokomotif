@@ -9,13 +9,6 @@ pipeline {
     
 
     stages {
-        stage('Verify Docker') {
-            steps {
-              
-                   sh "docker --version"
-              
-            }
-        }
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
