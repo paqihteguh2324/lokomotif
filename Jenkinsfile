@@ -11,11 +11,9 @@ pipeline {
     stages {
         stage('Verify Docker') {
             steps {
-                script {
-                    docker.image('alpine:latest').inside {
-                        sh 'echo "Hello, world!"'
-                    }
-                }
+              
+                   sh "docker --version"
+              
             }
         }
         stage('Build Maven') {
