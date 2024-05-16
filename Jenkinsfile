@@ -25,7 +25,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarQube') {
                  bat 'mvn clean package'
-                    bat ''' mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif' -Dsonar.host.url=http://172.31.160.1:9000 -Dsonar.login=sqb_9e8984cfdbdf345923bc6a21948adb06afaa4d39'''
+                    bat ''' mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif' '''
                 }
             }
         }
