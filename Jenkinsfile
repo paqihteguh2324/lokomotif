@@ -19,7 +19,7 @@ pipeline {
         
         stage('Check SonarQube Code Analysis') {
             steps {
-                withSonarQubeEnv('jenkins-sonarqube') {
+                withSonarQubeEnv('sonarQube') {
                     sh "mvn clean verify sonar:sonar"
                     echo "SUCCESS Check SonarQube Code Analysis"
                 }
