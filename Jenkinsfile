@@ -6,15 +6,13 @@ pipeline {
         maven "jenkins-maven"
     }
 
-    
-
     stages {
         stage('Build Maven') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main', url: 'https://github.com/paqihteguh2324/lokomotif.git'
 
-                // Run Maven on a Unix agent.
+                // Run Maven on a Windows agent.
                 bat "mvn -v"
                 bat "docker --version"
                 bat "mvn clean package"
@@ -24,31 +22,32 @@ pipeline {
         stage('Check SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarQube') {
-                 bat 'mvn clean package'
-                    bat  "mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
+                    sh 'mvn clean package'
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=Lokomotif -Dsonar.projectName='Lokomotif'"
                 }
             }
         }
-          stage('Build Docker Image') {
+        
+        stage('Build Docker Image') {
             steps {
                 // build docker image
                 bat "docker build -t paqih/locomotive-scheduler-service ."
             }
         }
         
-            stage('Pubat Image to Docker Hub') {
+        stage('Push Image to Docker Hub') {
             steps {
                 // load docker hub credentials
                 withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER_VAR'), string(credentialsId: 'DOCKER_PASS', variable: 'DOCKER_PASS_VAR')]) {
                     // login to docker hub
-                    bat "docker login -u ${DOCKER_USER_VAR} -p ${DOCKER_PASS_VAR}"
+                    sh "docker login -u ${DOCKER_USER_VAR} -p ${DOCKER_PASS_VAR}"
                 }
                 
-                // pubat docker image to docker hub
-                bat "docker pubat paqih/locomotive-scheduler-service"
+                // push docker image to docker hub
+                sh "docker push paqih/locomotive-scheduler-service"
                 
                 // logout from docker hub
-                bat "docker logout"
+                sh "docker logout"
             }
         }
     }
@@ -56,7 +55,7 @@ pipeline {
     post {
         success {
             withCredentials([string(credentialsId: 'TELE_BOT_TOKEN', variable: 'TELE_BOT_TOKEN_VAR'), string(credentialsId: 'TELE_CHAT_ID', variable: 'TELE_CHAT_ID_VAR')]) {
-                bat """
+                sh """
                     curl --request POST \
                       --url https://api.telegram.org/bot${TELE_BOT_TOKEN_VAR}/sendMessage \
                       --header 'Content-Type: application/json' \
@@ -68,7 +67,7 @@ pipeline {
         
         failure {
             withCredentials([string(credentialsId: 'TELE_BOT_TOKEN', variable: 'TELE_BOT_TOKEN_VAR'), string(credentialsId: 'TELE_CHAT_ID', variable: 'TELE_CHAT_ID_VAR')]) {
-                bat """
+                sh """
                     curl --request POST \
                       --url https://api.telegram.org/bot${TELE_BOT_TOKEN_VAR}/sendMessage \
                       --header 'Content-Type: application/json' \
