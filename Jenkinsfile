@@ -25,35 +25,6 @@ pipeline {
             }
         }
         
-        stage("Quality Gate") {
-            steps {
-                waitForQualityGate abortPipeline: false
-                echo "Quality Gate check completed"
-            }
-        }
-        
-        stage('Build Docker Image') {
-            steps {
-                // build docker image
-                sh "docker build -t anandhias/locomotive-scheduler-service ."
-            }
-        }
-        
-        stage('Push Image to Docker Hub') {
-            steps {
-                // load docker hub credentials
-                withCredentials([string(credentialsId: 'DOCKER_USER', variable: 'DOCKER_USER_VAR'), string(credentialsId: 'DOCKER_PASS', variable: 'DOCKER_PASS_VAR')]) {
-                    // login to docker hub
-                    sh "docker login -u ${DOCKER_USER_VAR} -p ${DOCKER_PASS_VAR}"
-                }
-                
-                // push docker image to docker hub
-                sh "docker push anandhias/locomotive-scheduler-service"
-                
-                // logout from docker hub
-                sh "docker logout"
-            }
-        }
     }
 
     post {
