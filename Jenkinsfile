@@ -1,7 +1,7 @@
 pipeline {
     agent {
     docker {
-      image 'jenkins/docker:stable-jre11' // Agen khusus dengan Docker
+      image 'docker' // Agen khusus dengan Docker
     }
   }
 
