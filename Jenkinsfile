@@ -50,18 +50,5 @@ pipeline {
             }
         }
     }
-
-           post {
-            success {
-                withCredentials([string(credentialsId: 'TELE_BOT_TOKEN', variable: 'TELE_BOT_TOKEN_VAR'), string(credentialsId: 'TELE_CHAT_ID', variable: 'TELE_CHAT_ID_VAR')]) {
-                    bat ''' curl -s -X POST https://api.telegram.org/bot"%TELE_BOT_TOKEN_VAR%"/sendMessage -d chat_id="%TELE_CHAT_ID_VAR%" -d text="Build Success" '''
-                }
-            }
-            
-            failure {
-                withCredentials([string(credentialsId: 'TELE_BOT_TOKEN', variable: 'TELE_BOT_TOKEN_VAR'), string(credentialsId: 'TELE_CHAT_ID', variable: 'TELE_CHAT_ID_VAR')]) {
-                    bat ''' curl -s -X POST https://api.telegram.org/bot"%TELE_BOT_TOKEN_VAR%"/sendMessage -d chat_id="%TELE_CHAT_ID_VAR%" -d text="Build Failur" '''
-            }
-        }
     }
 }
